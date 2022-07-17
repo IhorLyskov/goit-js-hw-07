@@ -1,4 +1,36 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
 
-console.log(galleryItems);
+function createGalleryMarkup(galleryItems) {
+  return galleryItems
+    .map(({ preview, original, description }) => {
+      return `
+        <div class="gallery__item">
+          <a class="gallery__link" href="${original}">
+            <img 
+              class="gallery__image"
+              src="${preview}"
+              data-source="${original}"
+              alt="${description}"
+            />
+          </a>
+        </div>
+      `;
+    })
+    .join('');
+}
+
+const galleryContainer = document.querySelector('.gallery');
+galleryContainer.innerHTML = createGalleryMarkup(galleryItems);
+
+galleryContainer.addEventListener('click', onGalleryContainerClick);
+
+function onGalleryContainerClick(event) {
+  const img = event.target;
+  if (!img.classList.contains('gallery__image')) {
+    return;
+  }
+  event.preventDefault();
+
+  basicLightbox.create(`<img src="${img.dataset.source}">`).show();
+}
