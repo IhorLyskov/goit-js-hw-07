@@ -20,6 +20,8 @@ function createGalleryMarkup(galleryItems) {
     .join('');
 }
 
+let instance;
+const body = document.querySelector('body');
 const galleryContainer = document.querySelector('.gallery');
 galleryContainer.innerHTML = createGalleryMarkup(galleryItems);
 
@@ -32,5 +34,14 @@ function onGalleryContainerClick(event) {
   }
   event.preventDefault();
 
-  basicLightbox.create(`<img src="${img.dataset.source}">`).show();
+  instance = basicLightbox.create(`<img src="${img.dataset.source}">`);
+  window.addEventListener('keydown', onEscKeyPress);
+  instance.show();
+}
+
+function onEscKeyPress(event) {
+  if (event.code === 'Escape') {
+    window.removeEventListener('keydown', onEscKeyPress);
+    instance.close();
+  }
 }
