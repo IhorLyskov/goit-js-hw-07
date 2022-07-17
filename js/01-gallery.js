@@ -37,6 +37,7 @@ function onGalleryContainerClick(event) {
   instance = basicLightbox.create(`<img src="${img.dataset.source}">`);
   window.addEventListener('keydown', onEscKeyPress);
   instance.show();
+  console.log(instance);
 }
 
 function onEscKeyPress(event) {
