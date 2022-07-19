@@ -15,4 +15,4 @@ function createGalleryMarkup(galleryItems) {
 
 const galleryContainer = document.querySelector('.gallery');
 galleryContainer.innerHTML = createGalleryMarkup(galleryItems);
-let gallery = new SimpleLightbox('.gallery a', { captionsData: 'alt', captionDelay: 250 });
+const gallery = new SimpleLightbox('.gallery a', { captionsData: 'alt', captionDelay: 250 });
