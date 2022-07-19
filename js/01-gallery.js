@@ -35,15 +35,23 @@ function onGalleryContainerClick(event) {
   event.preventDefault();
 
   instance = basicLightbox.create(`<img src="${img.dataset.source}">`);
-  window.addEventListener('keydown', onEscKeyPress);
-  instance.show();
-  console.log(instance);
+  instance.show(onShow);
+}
+
+function onRemoveEscKeyPress(event) {
+  window.removeEventListener('keydown', onEscKeyPress);
+  body.style.overflow = '';
 }
 
 function onEscKeyPress(event) {
   console.log(event);
   if (event.code === 'Escape') {
-    window.removeEventListener('keydown', onEscKeyPress);
-    instance.close();
+    instance.close(onRemoveEscKeyPress);
   }
+}
+
+function onShow(instance) {
+  instance.element().addEventListener('click', onRemoveEscKeyPress);
+  window.addEventListener('keydown', onEscKeyPress);
+  body.style.overflow = 'hidden';
 }
